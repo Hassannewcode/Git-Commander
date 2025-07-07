@@ -1,1 +1,27 @@
-
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>GitHub Mobile</title>
+    <link rel="stylesheet" href="styles.css">
+    <link rel="manifest" href="manifest.json">
+</head>
+<body>
+    <div class="container">
+        <h1>GitHub Mobile Commander</h1>
+        <div id="auth-section">
+            <button id="github-login">Login with GitHub</button>
+        </div>
+        <div id="terminal-section" class="hidden">
+            <div id="terminal-output"></div>
+            <div class="input-group">
+                <input type="text" id="command-input" placeholder="Enter git command...">
+                <button id="execute-btn">Run</button>
+            </div>
+            <button id="ai-assistant">Ask AI Assistant</button>
+        </div>
+    </div>
+    <script src="script.js"></script>
+</body>
+</html>
