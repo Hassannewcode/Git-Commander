@@ -1,1 +1,34 @@
+name: Execute Git Commands
 
+on:
+  repository_dispatch:
+    types: [execute_command]
+
+jobs:
+  process-command:
+    runs-on: ubuntu-latest
+    steps:
+    - name: Checkout
+      uses: actions/checkout@v4
+      
+    - name: Setup Git
+      run: |
+        git config --global user.name "GitMobileUser"
+        git config --global user.email "gitmobile@example.com"
+        
+    - name: Execute command
+      env:
+        GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+      run: |
+        COMMAND="${{ github.event.client_payload.command }}"
+        REPO="${{ github.event.client_payload.repo }}"
+        
+        if [[ $COMMAND == git\ clone* ]]; then
+          git clone $REPO
+        elif [[ $COMMAND == git\ push* ]]; then
+          git add . && git commit -m "Mobile commit" && git push
+        else
+          eval "$COMMAND"
+        fi
+        
+        echo "::set-output name=result::Success"
